@@ -16,6 +16,8 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 
 Route::get('signup', 'UsersController@create')->name('signup');
 Route::resource('users', 'UsersController');
+Route::get('/users/{id}/followings', 'UsersController@followings')->name('users.followings');
+Route::get('/users/{id}/followers', 'UsersController@followers')->name('users.followers');
 
 Route::get('login', 'SessionsController@create')->name('login');
 Route::post('login', 'SessionsController@store')->name('login');
@@ -29,3 +31,6 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('
 Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.update');
 
 Route::resource('statuses', 'StatusesController', ['only' => ['store', 'destroy']]);
+
+Route::post('/users/followers/{id}', 'FollowersController@store')->name('followers.store');
+Route::delete('/users/followers/{id}', 'FollowersController@destroy')->name('followers.destroy');
